@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/Footer.jsx";
 import Header from "./components/Header";
 import CartPage from "./pages/CartPage";
 import LandingPage from "./pages/LandingPage";
@@ -8,9 +9,12 @@ import ProductPage from "./pages/ProductPage";
 
 export default function App() {
   const mockItems = [
-    { id: 1, name: "Plant 1", price: 10, image: "/plant2.jpg" },
-    { id: 2, name: "Plant 2", price: 15, image: "/plant2.jpg" },
-    { id: 3, name: "Plant 3", price: 20, image: "/plant2.jpg" },
+    { id: 1, name: "Name 1", price: 10, image: "/test.jpg" },
+    { id: 2, name: "Name 2", price: 15, image: "/2.jpeg" },
+    { id: 3, name: "Name 3", price: 20, image: "/3.jpeg" },
+    { id: 4, name: "Name 4", price: 10, image: "/test2.jpg" },
+    { id: 5, name: "Name 5", price: 15, image: "/test3.jpg" },
+    { id: 6, name: "Name 6", price: 20, image: "/2.jpeg" },
   ];
 
   const [cartItems, setCartItems] = useState([]);
@@ -22,7 +26,6 @@ export default function App() {
       );
 
       if (existingItemIndex >= 0) {
-        // Increment quantity if item already exists
         return prevItems.map((cartItem, index) =>
           index === existingItemIndex
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
@@ -30,7 +33,6 @@ export default function App() {
         );
       }
 
-      // Add new item with quantity 1
       return [...prevItems, { ...item, quantity: 1 }];
     });
   };
@@ -50,7 +52,6 @@ export default function App() {
   return (
     <Router>
       <Header cartItems={cartItems} />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
@@ -70,6 +71,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }

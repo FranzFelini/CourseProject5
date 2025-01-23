@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import {
+  Minus,
+  Plus,
+  ShoppingBag,
+  SquareChevronLeft,
+  Trash2,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const CartPage = ({ cartItems, updateCartItemQuantity, removeFromCart }) => {
@@ -21,82 +28,96 @@ const CartPage = ({ cartItems, updateCartItemQuantity, removeFromCart }) => {
   }, [cartItems]);
 
   return (
-    <div className="min-h-screen bg-[#1e2d3e] text-white p-8">
-      <h2 className="text-3xl font-bold mb-6 text-center">Your Cart</h2>
+    <div className="min-h-[30em] bg-gray-800 text-white p-8 mt-[4em] rounded-xl">
+      <header className="max-w-4xl mx-auto mb-12 flex justify-between items-center">
+        <h2 className="text-3xl font-bold flex items-center">
+          <ShoppingBag className="mr-4 text-white" />
+          Your Cart
+        </h2>
+        <Link
+          to="/product"
+          className="bg-white text-green-700 px-4 py-2 rounded-lg hover:bg-green-100 transition-colors"
+        >
+          {" "}
+          <SquareChevronLeft> nesto </SquareChevronLeft>
+        </Link>
+      </header>
+
       {cartItems.length === 0 ? (
-        <p className="text-lg text-center text-gray-300">
-          Your cart is empty. Add some products to see them here!
-        </p>
+        <div className="text-center">
+          <p className="text-lg text-gray-200">
+            Your cart is empty. Add some products to see them here!
+          </p>
+        </div>
       ) : (
-        <div className="space-y-6">
+        <div className="max-w-4xl mx-auto space-y-6">
           {cartItems.map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between bg-[#2b3d4f] p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              className="flex items-center justify-between bg-white/10 p-4 rounded-lg backdrop-blur-sm hover:bg-white/20 transition-all"
             >
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-6">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-16 h-16 object-cover rounded-md"
+                  className="w-20 h-20 object-cover rounded-md"
                 />
                 <div>
                   <h4 className="text-xl font-semibold">{item.name}</h4>
-                  <p className="text-gray-400">
+                  <p className="text-green-200">
                     ${(item.price * item.quantity).toFixed(2)}
                   </p>
-                  <div className="flex items-center mt-2">
+                  <div className="flex items-center mt-2 bg-white/10 rounded-md">
                     <button
-                      onClick={() => {
-                        updateCartItemQuantity(index, item.quantity - 1);
-                      }}
+                      onClick={() =>
+                        updateCartItemQuantity(index, item.quantity - 1)
+                      }
                       disabled={item.quantity === 1}
-                      className={`px-2 py-1 rounded-l-md bg-gray-500 text-white transition-all duration-300 ${
-                        item.quantity === 1
-                          ? "cursor-not-allowed opacity-50"
-                          : "hover:bg-gray-600"
-                      }`}
+                      className="p-2 text-white disabled:opacity-50"
                     >
-                      -
+                      <Minus />
                     </button>
-                    <span className="px-4 py-1 bg-gray-700 text-white font-semibold">
+                    <span className="px-4 py-1 text-white font-semibold">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() =>
                         updateCartItemQuantity(index, item.quantity + 1)
                       }
-                      className="px-2 py-1 rounded-r-md bg-gray-500 text-white transition-all duration-300 hover:bg-gray-600"
+                      className="p-2 text-white"
                     >
-                      +
+                      <Plus />
                     </button>
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => removeFromCart(index)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition-all duration-300"
+                className="text-red-400 hover:text-red-500 transition-colors"
               >
-                Remove
+                <Trash2 />
               </button>
             </div>
           ))}
         </div>
       )}
-      <div className="mt-8 text-center">
-        <h3 className="text-xl font-semibold text-gray-300 mb-[3em]">
-          Total Items: {totalQuantity}
-        </h3>
-        <h3 className="text-xl font-semibold text-gray-300 mb-[3em]">
-          Total: ${totalPrice.toFixed(2)}
-        </h3>
-        <Link
-          to="/product"
-          className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition-all duration-300"
+
+      <footer className="max-w-4xl mx-auto mt-12 text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
+        <div className="flex justify-between">
+          <h3 className="text-xl font-semibold">Total Items</h3>
+          <span className="text-xl">{totalQuantity}</span>
+        </div>
+        <div className="flex justify-between mt-4">
+          <h3 className="text-xl font-semibold">Total</h3>
+          <span className="text-xl font-bold">${totalPrice.toFixed(2)}</span>
+        </div>
+        <button
+          className="mt-6 w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors"
+          onClick={() => alert("Checkout functionality coming soon!")}
         >
-          Back to Products
-        </Link>
-      </div>
+          Proceed to Checkout
+        </button>
+      </footer>
     </div>
   );
 };
