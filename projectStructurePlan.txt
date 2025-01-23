@@ -1,0 +1,30 @@
+/paradise-nursery
+│
+├── /public
+│   ├── index.html           # HTML template
+│   ├── /images              # Store your image assets like plant thumbnails and background images
+│   └── favicon.ico
+│
+├── /src
+│   ├── /assets              # Store any static files like plant images or logos
+│   ├── /components          # Reusable components
+│   │   ├── Header.js        # Header with cart icon and navigation
+│   │   ├── ProductCard.js   # Card to display individual plant details
+│   │   ├── CartItem.js      # Cart item display and functionality (for qty changes)
+│   │   └── Button.js        # Reusable button component
+│   │
+│   ├── /pages               # Pages corresponding to different views
+│   │   ├── LandingPage.js   # Home page with company info and Get Started button
+│   │   ├── ProductPage.js   # Page with all the products listed and add-to-cart functionality
+│   │   └── CartPage.js      # Page displaying the cart with items, quantity adjuster, and total
+│   │
+│   ├── /context             # Context for global state management (cart info)
+│   │   └── CartContext.js   # Handles global cart state (items, total, etc.)
+│   │
+│   ├── App.js               # Root component, routing between pages
+│   ├── index.js             # Entry point for the React app
+│   └── App.css              # Styles for the app
+│
+├── .gitignore               # To ignore files like node_modules
+├── package.json             # Project dependencies and scripts
+└── README.md                # Instructions or description of the project
